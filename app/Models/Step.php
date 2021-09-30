@@ -10,6 +10,7 @@ class Step extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['recipe_id'];
     /**
      * Get the recipe that owns the step.
      */

@@ -11,6 +11,7 @@ class Ingredient extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name','type_id'];
     /**
      * Get the recipes that use this ingredient.
      */

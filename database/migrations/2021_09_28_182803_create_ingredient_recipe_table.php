@@ -13,7 +13,7 @@ class CreateIngredientRecipeTable extends Migration
      */
     public function up()
     {
-        Schema::create('recipe_ingredient', function (Blueprint $table) {
+        Schema::create('ingredient_recipe', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ingredient_id')->constrained();
             $table->foreignId('recipe_id')->constrained();

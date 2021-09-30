@@ -9,7 +9,7 @@ use App\Models\Ingredient;
 class Type extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['name'];
     /**
      * Get the ingredients of this type.
      */
