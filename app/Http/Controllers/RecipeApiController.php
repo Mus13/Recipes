@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Resources\RecipeResource;
 use App\Models\Recipe;
-use Illuminate\Database\Eloquent\Builder;
+
 class RecipeApiController extends Controller
 {
     
@@ -18,22 +18,12 @@ class RecipeApiController extends Controller
     }
 
     public function getRecipesByIngredients($ingredients){
-        $ingredients=json_decode($ingredients);
-        $recipes = Recipe::with('ingredients')
-        ->whereHas('ingredients', function (Builder $query) use($ingredients) {
-            $query->whereIn('name',$ingredients);
-        })
-        ->get();
+        $recipes = Recipe::getRecipesByIngredient(json_decode($ingredients));
         return RecipeResource::collection($recipes);
     }
 
     public function getRecipesByTimer($time){
-        $recipes = Recipe::with('steps')
-        ->whereHas('steps', function (Builder $query) use($time){
-            $query->select('recipe_id')->groupBy('recipe_id')
-                  ->havingRaw('SUM(time) <= '.$time.'');
-        })
-        ->get();
+        $recipes = Recipe::getRecipesByTime($time);
         return RecipeResource::collection($recipes);
     }
 

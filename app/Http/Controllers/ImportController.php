@@ -12,6 +12,7 @@ use App\Models\Ingredient;
 
 class ImportController extends Controller
 {
+    
     public function store(){
         $data=(new ImportService)->importData();
         foreach ($data as $key => $recipe) {
@@ -35,14 +36,7 @@ class ImportController extends Controller
                 $newStep->recipe_id=$newRecipe->id;
                 $newStep->save();
             }
-            $recipesData=collect($newRecipe);
         }
-        return 'succesfull';
-    }
-
-    public function FunctionName()
-    {
-        $newRecipe=Recipe::find(3);
-        return $newRecipe->ingredients;
+        return redirect('/home');
     }
 }

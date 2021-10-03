@@ -17,4 +17,8 @@ class Step extends Model
     public function recipe(){
         return $this->belongsTo(Recipe::class);
     }
+
+    public static function getMAxTimeTotal(){
+        return SELF::selectRaw('recipe_id,SUM(time) as total')->groupBy('recipe_id')->orderBy('total','desc')->first()->total;
+    }
 }

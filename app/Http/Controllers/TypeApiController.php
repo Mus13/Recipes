@@ -8,10 +8,7 @@ use App\Models\Type;
 
 class TypeApiController extends Controller
 {
-    
     public function index(){
             return TypeResource::collection(Type::all());
     }
-
-
 }
