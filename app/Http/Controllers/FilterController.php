@@ -43,7 +43,11 @@ class FilterController extends Controller
                 $ingredients->push($ingredient);
             }
         }
-        $returnHTML=  view('layouts.card', ['recipes' => Recipe::paginate(4)]);
+        $recipesByIngredient=Recipe::getRecipesByIngredient($ingredients->pluck('name'));
+        $recipesByTime=Recipe::getRecipesByTime($time);
+        $recipes=$recipesByIngredient->intersect($recipesByTime);
+        $paginator = new Paginator($recipes, 3);
+        $returnHTML=  view('layouts.card', ['recipes' => $paginator])->render();
         return response()->json(array('success' => true, 'html'=>$returnHTML));
     }
 
